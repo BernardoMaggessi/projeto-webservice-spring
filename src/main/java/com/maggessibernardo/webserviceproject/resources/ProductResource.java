@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.maggessibernardo.webserviceproject.entities.Category;
 import com.maggessibernardo.webserviceproject.entities.Product;
 import com.maggessibernardo.webserviceproject.services.ProductService;
 
@@ -32,6 +31,7 @@ public class ProductResource {
 		Product obj = service.findById(id);
 		return ResponseEntity.ok().body(obj);
 	}
+	
 	
 	
 }
