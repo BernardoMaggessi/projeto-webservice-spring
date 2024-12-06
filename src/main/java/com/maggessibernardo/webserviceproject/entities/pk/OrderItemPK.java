@@ -34,72 +34,41 @@ public class OrderItemPK implements Serializable {
 	// da serialização em diferentes versões da classe.
 	private static final long serialVersionUID = 1L;
 	
-	// Relacionamento muitos para um com a entidade Order (um pedido pode ter muitos itens)
+	
 	@ManyToOne
 	@JoinColumn(name = "order_id")  // Chave estrangeira que referencia o pedido
 	private Order order;
 
-	// Relacionamento muitos para um com a entidade Product (um item de pedido pode ter um produto)
 	@ManyToOne
 	@JoinColumn(name = "product_id")  // Chave estrangeira que referencia o produto
 	private Product product;
 
-	/**
-	 * Retorna o pedido associado a este item de pedido.
-	 * 
-	 * @return O pedido associado a este item de pedido.
-	 */
+	
 	public Order getOrder() {
 		return order;
 	}
 
-	/**
-	 * Define o pedido associado a este item de pedido.
-	 * 
-	 * @param order O pedido a ser associado ao item de pedido.
-	 */
+	
 	public void setOrder(Order order) {
 		this.order = order;
 	}
 
-	/**
-	 * Retorna o produto associado a este item de pedido.
-	 * 
-	 * @return O produto associado a este item de pedido.
-	 */
 	public Product getProduct() {
 		return product;
 	}
 
-	/**
-	 * Define o produto associado a este item de pedido.
-	 * 
-	 * @param product O produto a ser associado ao item de pedido.
-	 */
+	
 	public void setProduct(Product product) {
 		this.product = product;
 	}
 
-	/**
-	 * Sobrescreve o método {@link Object#hashCode()} para garantir uma comparação
-	 * correta das chaves compostas com base nos atributos de {@link Order} e 
-	 * {@link Product}.
-	 * 
-	 * @return O código de hash calculado a partir dos campos order e product.
-	 */
+	
 	@Override
 	public int hashCode() {
 		return Objects.hash(order, product);
 	}
 
-	/**
-	 * Sobrescreve o método {@link Object#equals(Object)} para garantir que duas
-	 * chaves compostas sejam consideradas iguais se tiverem os mesmos valores
-	 * para order e product.
-	 * 
-	 * @param obj O objeto a ser comparado com a chave composta atual.
-	 * @return Verdadeiro se as chaves compostas forem iguais, caso contrário, falso.
-	 */
+	
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
