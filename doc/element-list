@@ -1,0 +1,8 @@
+com.maggessibernardo.webserviceproject
+com.maggessibernardo.webserviceproject.config
+com.maggessibernardo.webserviceproject.entities
+com.maggessibernardo.webserviceproject.entities.enums
+com.maggessibernardo.webserviceproject.entities.pk
+com.maggessibernardo.webserviceproject.repositories
+com.maggessibernardo.webserviceproject.resources
+com.maggessibernardo.webserviceproject.services
