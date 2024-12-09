@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.maggessibernardo.webserviceproject.entities.Order;
 import com.maggessibernardo.webserviceproject.repositories.OrderRepository;
-
+//implementa interface de repositório
 @Service
 public class OrderService {
 	

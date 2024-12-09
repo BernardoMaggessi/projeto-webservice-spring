@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.maggessibernardo.webserviceproject.entities.Category;
 import com.maggessibernardo.webserviceproject.services.CategoryService;
 
-//classe irá disponilibizar um recurso web para trabalhar com o objeto User
 
 @RestController
 @RequestMapping(value = "/categories")
