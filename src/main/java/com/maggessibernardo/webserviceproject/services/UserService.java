@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.maggessibernardo.webserviceproject.entities.User;
 import com.maggessibernardo.webserviceproject.repositories.UserRepository;
+import com.maggessibernardo.webserviceproject.services.execptions.ResourceNotFoundException;
 
 @Service
 public class UserService {
@@ -20,7 +21,7 @@ public class UserService {
 	}
 	public User findById(Long id) {
 		Optional<User> obj = repository.findById(id);
-		return obj.get();
+		return obj.orElseThrow(() -> new ResourceNotFoundException(id));//TRATAMENTO DE EXCEPTION PERSONALIZADA
 	}
 	public User insert(User obj) {
 		return repository.save(obj);
