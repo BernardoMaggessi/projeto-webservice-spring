@@ -13,6 +13,8 @@ import com.maggessibernardo.webserviceproject.repositories.UserRepository;
 import com.maggessibernardo.webserviceproject.services.execptions.DatabaseException;
 import com.maggessibernardo.webserviceproject.services.execptions.ResourceNotFoundException;
 
+import jakarta.persistence.EntityNotFoundException;
+
 @Service
 public class UserService {
 	
@@ -39,7 +41,7 @@ public class UserService {
 			throw new DatabaseException(e.getMessage());
 		}
 	}*/
-	//GOOD WAY
+	//GOOD WAY -- porém me parece bem letno
 	public void delete(Long id) {
 	    Optional<User> obj = repository.findById(id);
 	    if (obj.isEmpty()) {
@@ -53,9 +55,13 @@ public class UserService {
 	}
 
 	public User update(Long id, User obj) {
-		User entity = repository.getReferenceById(id);
-		updateData(entity,obj);
-		return repository.save(entity);
+		try {
+			User entity = repository.getReferenceById(id);
+			updateData(entity,obj);
+			return repository.save(entity);
+		}catch(EntityNotFoundException e) {
+			throw new ResourceNotFoundException(id);
+		}
 	}
 	private void updateData(User entity,User obj) {
 		entity.setName(obj.getName());
