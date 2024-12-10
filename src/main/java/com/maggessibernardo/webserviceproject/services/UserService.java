@@ -4,10 +4,13 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
 import com.maggessibernardo.webserviceproject.entities.User;
 import com.maggessibernardo.webserviceproject.repositories.UserRepository;
+import com.maggessibernardo.webserviceproject.services.execptions.DatabaseException;
 import com.maggessibernardo.webserviceproject.services.execptions.ResourceNotFoundException;
 
 @Service
@@ -26,9 +29,29 @@ public class UserService {
 	public User insert(User obj) {
 		return repository.save(obj);
 	}
+	//BAD WAY
+	/*public void delete(Long id) {
+		try{
+			repository.deleteById(id);
+		}catch(EmptyResultDataAccessException e) {
+			throw new ResourceNotFoundException(id);
+		}catch(DataIntegrityViolationException e) {
+			throw new DatabaseException(e.getMessage());
+		}
+	}*/
+	//GOOD WAY
 	public void delete(Long id) {
-		repository.deleteById(id);
+	    Optional<User> obj = repository.findById(id);
+	    if (obj.isEmpty()) {
+	        throw new ResourceNotFoundException(id); // Lançar exceção se não encontrar o usuário
+	    }
+	    try {
+	        repository.deleteById(id);
+	    } catch (DataIntegrityViolationException e) {
+	        throw new DatabaseException(e.getMessage());
+	    }
 	}
+
 	public User update(Long id, User obj) {
 		User entity = repository.getReferenceById(id);
 		updateData(entity,obj);
