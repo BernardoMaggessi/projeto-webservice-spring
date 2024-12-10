@@ -1,2 +1,20 @@
-Projeto básico web services com Spring Boot e JPA/HIBERNATE -- 
-Dentro da pasta principal, temos o PDF com um passo a passo para estudo e orientações de como construir um projeto do tipo.
+#### Sobre 
+Aplicaçao back-end desenvolvido durante curso do DEVSUPERIOR - Java completo programação orientada a objetos + projetos ministrado pelo professor Nélio Alves -- Neste módulos trabalhamos com Spring boot e JPA/hibernate
+
+#### Objetivos do projeto
+- Criar projeto Spring Boot Java
+- Implementar modelo de domínio
+- Estruturar camadas lógicas: resource, service, repository
+- Configurar banco de dados de teste (H2)
+- Povoar o banco de dados
+- CRUD - Create, Retrieve, Update, Delete
+- Tratamento de exceções
+
+#### Domain model
+![image](https://github.com/user-attachments/assets/cf6f6d49-2ac2-4b7c-a12a-acd331886b8d)
+
+#### Domain Instance 
+![image](https://github.com/user-attachments/assets/1b67b03c-7a67-463a-a175-d8bc23bd2736)
+
+####Logical layers
+![image](https://github.com/user-attachments/assets/1d06bb04-47b2-4218-9d7e-3ec67894b417)
