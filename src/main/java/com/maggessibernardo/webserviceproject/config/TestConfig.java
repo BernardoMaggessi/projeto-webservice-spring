@@ -5,8 +5,10 @@ import java.util.Arrays;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import com.maggessibernardo.webserviceproject.entities.Category;
 import com.maggessibernardo.webserviceproject.entities.Order;
@@ -66,8 +68,8 @@ public class TestConfig implements CommandLineRunner {
 			
 			productRepository.saveAll(Arrays.asList(p1,p2,p3,p4,p5));
 			
-			User u1 = new User(null, "Maria Brown", "maria@gmail.com", "988888888", "123456");
-			User u2 = new User(null, "Alex Green", "alex@gmail.com", "977777777", "123456");
+			User u1 = new User(null, "Maria Brown", "maria@gmail.com", "988888888", "123456",null);
+			User u2 = new User(null, "Alex Green", "alex@gmail.com", "977777777", "123456",null);
 			
 			Order o1 = new Order(null, Instant.parse("2019-06-20T19:53:07Z"),OrderStatus.PAID, u1);
 			Order o2 = new Order(null, Instant.parse("2019-07-21T03:42:10Z"),OrderStatus.WAITING_PAYMENT, u2);
@@ -87,6 +89,19 @@ public class TestConfig implements CommandLineRunner {
 			o1.setPayment(pay1);
 			
 			orderRepository.save(o1);
+	}
+			
+			@Bean
+			public CommandLineRunner demo(UserRepository userRepository, BCryptPasswordEncoder encoder) {
+			    return (args) -> {
+			        User admin = new User();
+			        admin.setName("Admin");
+			        admin.setEmail("admin@admin.com");
+			        admin.setPassword(encoder.encode("123"));
+			        admin.setRole("ROLE_ADMIN");
+
+			        userRepository.save(admin);
+			    };
 			
 	}
 	

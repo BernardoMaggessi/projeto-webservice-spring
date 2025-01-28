@@ -47,7 +47,8 @@ public class User implements Serializable {
 	private String phone;
 
 	private String password;
-
+	
+	private String role;
 	
 	@JsonIgnore  // A anotação evita que os pedidos do usuário sejam serializados automaticamente
 	@OneToMany(mappedBy="client")
@@ -57,12 +58,13 @@ public class User implements Serializable {
 	public User() {}
 
 	
-	public User(Long id, String name, String email, String phone, String password) {
+	public User(Long id, String name, String email, String phone, String password, String role) {
 		this.id = id;
 		this.name = name;
 		this.email = email;
 		this.phone = phone;
 		this.password = password;
+		this.role = role;
 	}
 
 	
@@ -116,12 +118,19 @@ public class User implements Serializable {
 	public List<Order> getOrders() {
 		return orders;
 	}
+	public String getRole() {
+		return role;
+	}
+	public void setRole(String role) {
+		this.role = role;
+	}
 
-	
+
 	@Override
 	public int hashCode() {
-		return Objects.hash(id);
+		return Objects.hash(email, id, role);
 	}
+
 
 	@Override
 	public boolean equals(Object obj) {
@@ -132,6 +141,9 @@ public class User implements Serializable {
 		if (getClass() != obj.getClass())
 			return false;
 		User other = (User) obj;
-		return Objects.equals(id, other.id);
+		return Objects.equals(email, other.email) && Objects.equals(id, other.id) && Objects.equals(role, other.role);
 	}
+
+	
+	
 }
