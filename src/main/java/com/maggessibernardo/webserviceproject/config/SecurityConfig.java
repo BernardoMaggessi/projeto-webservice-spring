@@ -7,6 +7,7 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.HeadersConfigurer;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
@@ -14,7 +15,6 @@ import org.springframework.security.web.SecurityFilterChain;
 import com.maggessibernardo.webserviceproject.services.CustomUserDetailsService;
 
 import static org.springframework.security.config.Customizer.withDefaults;
-
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
@@ -37,26 +37,18 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
-            .authorizeHttpRequests(authz -> authz
-                .requestMatchers("/admin/**").hasRole("ADMIN")    // Acesso restrito a ADMIN
-                .requestMatchers("/user/**").hasRole("USER")      // Acesso restrito a USER
-                .requestMatchers("/h2-console/**").permitAll()     // Permite acesso ao H2 Console sem autenticação
-                .anyRequest().authenticated()                     // Qualquer outra requisição deve estar autenticada
+            .csrf(csrf -> csrf.disable())  // Desabilita CSRF para permitir requisições via navegador
+            .authorizeHttpRequests(auth -> auth
+                .requestMatchers("/h2-console/**").permitAll() // Permite acesso ao h2
+                .requestMatchers("/api/auth/**").permitAll()  // Permite acesso a autenticação
+                .anyRequest().authenticated()
             )
-            .formLogin(withDefaults())  // Permite o login via formulário (com comportamento padrão)
-            .httpBasic(withDefaults())  // Autenticação básica (por exemplo, curl/Postman)
-            .headers(headers -> extracted(headers)  // Permite que o H2 Console seja exibido em um iframe
-            );
-
-        return http.build();  // Necessário para construir a configuração do filtro
+            .headers(headers -> headers
+                .frameOptions(frame -> frame.sameOrigin())  // Permite frames da mesma origem (recomendado para H2 console)
+            )
+            .sessionManagement(sess -> sess.sessionCreationPolicy(SessionCreationPolicy.STATELESS)); // Define política de sessão como stateless
+        return http.build();
     }
-
-	@SuppressWarnings("removal")
-	private HeadersConfigurer<HttpSecurity> extracted(HeadersConfigurer<HttpSecurity> headers) {
-		return headers
-		    .frameOptions().sameOrigin();
-	}
-
     // Bean para codificar a senha
     @Bean
     public PasswordEncoder passwordEncoder() {
