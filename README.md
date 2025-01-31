@@ -1,5 +1,7 @@
 #### Sobre 
-Aplicaçao back-end desenvolvido durante curso do DEVSUPERIOR - Java completo programação orientada a objetos + projetos ministrado pelo professor Nélio Alves -- Neste módulos trabalhamos com Spring boot e JPA/hibernate
+Aplicaçao back-end desenvolvido durante curso do DEVSUPERIOR - Java completo programação orientada a objetos + projetos ministrado pelo professor Nélio Alves -- Neste módulos trabalhamos com Spring boot e JPA/hibernate -- Além do conteúdo apresentado no curso, implementei no projeto Spring Security, JWT, alguns testes de Usuário utilizando JUnit para entender a estruturção de testes
+
+-->Futuras implementações em testes e mais operações CRUD para tornar o sistema ainda mais acertivo e próximo com uma aplicação REST de ecommerce real
 
 #### Objetivos do projeto
 - Criar projeto Spring Boot Java
